@@ -10,6 +10,7 @@ The state of the system, which includes the positions of players and the ball, i
 
 $`\sqrt{3}`$
 
+$'\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t) = \psi_A(\mathbf{r}_A, t) \cdot \psi_B(\mathbf{r}_B, t) \cdot \psi_{\text{ball}}(\mathbf{r}_{\text{ball}}, t)'$
 
 $'
 \Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t) = \psi_A(\mathbf{r}_A, t) \cdot \psi_B(\mathbf{r}_B, t) \cdot \psi_{\text{ball}}(\mathbf{r}_{\text{ball}}, t)
