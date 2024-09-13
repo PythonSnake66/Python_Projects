@@ -1,83 +1,68 @@
 # Quantum-Inspired Soccer Match Prediction
 
-This project provides the framework for how one can utilize a quantum-inspired approach to predict the outcomes of soccer matches. The methodology combines the principles of quantum mechanics, such as wave functions and time evolution using Schrödinger's equation, with classical Monte Carlo simulations to estimate the probabilities of different match outcomes.
+This project employs a quantum-inspired approach to predict the outcomes of soccer matches. The methodology combines quantum mechanics concepts, like wave functions and time evolution using Schrödinger's equation, with classical Monte Carlo simulations to estimate the probabilities of different match outcomes.
 
-## Overview
+## Methodology
 
-### Objective
+### 1. Wave Function Representation
 
-The primary objective of this project is to predict the win probabilities of a soccer match based on the current state of the game (positions of players and the ball) at a given time. The approach leverages quantum mechanics concepts to model the probabilistic nature of the game, evolving the game state over time and using Monte Carlo simulations to estimate the likelihood of various outcomes.
+The state of the system, which includes the positions of players and the ball, is represented as a wave function $\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t)$. This wave function is a product of individual Gaussian wave packets representing the probability amplitude of finding each player and the ball at a particular position at time $t$:
 
-### Methodology
+$$
+\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t) = \psi_A(\mathbf{r}_A, t) \cdot \psi_B(\mathbf{r}_B, t) \cdot \psi_{\text{ball}}(\mathbf{r}_{\text{ball}}, t)
+$$
 
-1. **Wave Function Representation:**
-   - Each player's position and the ball's position are represented as Gaussian wave packets. The wave function for the entire system is the product of the individual wave functions of the players and the ball:
-     \[
-     \Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t) = \psi_A(\mathbf{r}_A, t) \cdot \psi_B(\mathbf{r}_B, t) \cdot \psi_{\text{ball}}(\mathbf{r}_{\text{ball}}, t)
-     \]
-   - The wave function encodes all possible configurations of the players and the ball on the field at a given time \( t \).
+Each Gaussian wave packet, for example for player A, can be represented as:
 
-2. **Time Evolution Using Schrödinger's Equation:**
-   - The time evolution of the wave function is governed by the time-dependent Schrödinger equation:
-     \[
-     i\hbar \frac{\partial \Psi}{\partial t} = H \Psi
-     \]
-   - The Hamiltonian \( H \) consists of kinetic energy terms for the players and the ball, as well as potential energy terms representing their interactions.
-   - The wave function is numerically evolved over a specified time span using classical methods (e.g., finite difference methods and numerical solvers like `solve_ivp`).
+$$
+\psi_A(\mathbf{r}_A, t) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{|\mathbf{r}_A - \mathbf{r}_{A,0}|^2}{2\sigma^2} \right)
+$$
 
-3. **Monte Carlo Simulations:**
-   - The evolved wave function provides a probability distribution over possible configurations of the players and the ball.
-   - Monte Carlo simulations are used to sample from this probability distribution, estimating the likelihood of different outcomes (e.g., win, loss, draw) based on the current state of the game.
+where $\sigma$ represents the spread of the wave packet, indicating the uncertainty in the player's position.
 
-### Key Components
+### 2. Time Evolution Using Schrödinger's Equation
 
-- **Quantum State Preparation:**
-  - The initial quantum state is prepared based on the current positions of the players and the ball, represented as Gaussian wave packets.
+The evolution of the wave function over time is governed by the time-dependent Schrödinger equation:
 
-- **Hamiltonian Definition:**
-  - The Hamiltonian captures the dynamics of the system, including kinetic energy (movement) and potential energy (interactions and field effects).
+$$
+i\hbar \frac{\partial \Psi}{\partial t} = H \Psi
+$$
 
-- **Time Evolution:**
-  - The Schrödinger equation is solved numerically to evolve the wave function over a specified time span. This gives the state of the system at future times.
+The Hamiltonian $H$ consists of:
 
-- **Outcome Estimation:**
-  - Using the evolved wave function, Monte Carlo simulations estimate the probabilities of different match outcomes by sampling from the probability density function given by \(|\Psi|^2\).
+- **Kinetic Energy Terms**: Representing the movement of players and the ball. For a player A, this is given by:
 
-### Practical Implementation
+$$
+H_{\text{kinetic}, A} = -\frac{\hbar^2}{2m_A} \nabla^2_A
+$$
 
-1. **Define Initial State:**
-   - Initialize the wave function using Gaussian packets based on the given positions of players and the ball.
+- **Potential Energy Terms**: Representing the interactions between players, and between players and the ball. For example, the interaction between players A and B can be represented as:
 
-2. **Numerical Solution of Schrödinger's Equation:**
-   - Use Python libraries such as `scipy` to solve the time-dependent Schrödinger equation for the wave function over the chosen time span.
+$$
+V_{AB}(\mathbf{r}_A, \mathbf{r}_B) = k \frac{1}{|\mathbf{r}_A - \mathbf{r}_B|}
+$$
 
-3. **Run Monte Carlo Simulations:**
-   - Perform Monte Carlo simulations using the evolved wave function to predict future match outcomes. The results are based on a large number of simulations to ensure accuracy.
+The wave function is numerically evolved over a specified time span using classical methods (e.g., finite difference methods and numerical solvers such as `solve_ivp` in Python).
 
-4. **Visualization:**
-   - Visualize the probability density function of the evolved wave function to understand the distribution of likely configurations and match outcomes.
+### 3. Monte Carlo Simulations
 
-### Advantages of the Quantum-Inspired Approach
+After evolving the wave function, Monte Carlo simulations are used to estimate the likelihood of different match outcomes. The simulations sample from the probability density function given by $|\Psi|^2$ to determine the possible future states of the system. 
 
-- **Probabilistic Modeling:**
-  - The wave function provides a natural framework for modeling the probabilistic nature of soccer match dynamics.
-  
-- **Dynamic Predictions:**
-  - By evolving the wave function over time, the approach provides dynamic predictions that can be updated as the game progresses.
+The probability of finding the system in a specific configuration (e.g., player A scoring a goal) is proportional to $|\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t)|^2$. The Monte Carlo approach uses many random samples to estimate the probabilities of different outcomes such as:
 
-- **Monte Carlo Simulations:**
-  - Using Monte Carlo simulations allows for efficient estimation of outcome probabilities, leveraging the probabilistic nature of the evolved quantum state.
+- **Win for Team A**: When player A is in a favorable position.
+- **Win for Team B**: When player B is in a favorable position.
+- **Draw**: When neither team is in a clearly advantageous position.
 
-### Future Extensions
+### Implementation Steps
 
-- **Refinement of Hamiltonian:**
-  - Incorporate more realistic potential energy terms to better capture interactions between players and with the ball.
+1. **Initialize the Quantum State**: Use Gaussian wave packets to define the initial state of the system based on the current positions of the players and the ball.
+   
+2. **Numerical Solution of Schrödinger's Equation**: Use Python libraries like `SciPy` to solve the time-dependent Schrödinger equation for the wave function over the chosen time span.
 
-- **Integration with Real-Time Data:**
-  - Update the wave function and predictions in real-time using live data from matches.
+3. **Monte Carlo Simulation**: Perform Monte Carlo simulations using the evolved wave function to predict future match outcomes. The results are based on a large number of simulations to ensure accuracy.
 
-- **Quantum Computing:**
-  - Explore the use of actual quantum computing frameworks (e.g., Qiskit) for further optimization and scalability.
+4. **Visualization**: Visualize the probability density function of the evolved wave function to understand the distribution of likely configurations and match outcomes.
 
 ## Dependencies
 
