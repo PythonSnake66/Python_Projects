@@ -1,6 +1,6 @@
 ## Problem Statement
 
-This project focuses on building a deep learning model to predict high-frequency price changes of two unidentified US stocks. The model has an accuracy of 73% in the unseen testing dataset.
+This project focuses on building a deep learning model to predict high-frequency price changes of two unidentified US stocks. The model achieves an accuracy of 73% in the unseen testing dataset.
 
 The objective is to train a binary classifier using a dataset containing historical limit order book data to predict the direction of midprice changes (up or down) in the financial market.
 
