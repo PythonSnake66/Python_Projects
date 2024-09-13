@@ -1,6 +1,6 @@
 # Quantum-Inspired Soccer Match Prediction
 
-This project employs a quantum-inspired approach to predict the outcomes of soccer matches. The methodology combines quantum mechanics concepts, like wave functions and time evolution using Schrödinger's equation, with classical Monte Carlo simulations to estimate the probabilities of different match outcomes.
+This project provides the framework with which one can employs a quantum physics to predict the outcomes of soccer matches, particularly beneficial for sports betting. The methodology combines quantum mechanics concepts, like wave functions and time evolution using Schrödinger's equation, with classical Monte Carlo simulations to estimate the probabilities of different match outcomes.
 
 ## Methodology
 
