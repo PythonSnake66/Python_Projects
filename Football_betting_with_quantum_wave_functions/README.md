@@ -6,24 +6,16 @@ This project employs a quantum-inspired approach to predict the outcomes of socc
 
 ### 1. Wave Function Representation
 
-The state of the system, which includes the positions of players and the ball, is represented as a wave function $\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t)$. This wave function is a product of individual Gaussian wave packets representing the probability amplitude of finding each player and the ball at a particular position at time $t$:
-
-$`\sqrt{3}`$
-
-$'\Psi(r_A, r_B, r_{\text{ball}}, t) = \psi_A(r_A, t) \cdot \psi_B(r_B, t) \cdot \psi_{\text{ball}}(r_{\text{ball}}, t)'$
-
-$'
-\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t) = \psi_A(\mathbf{r}_A, t) \cdot \psi_B(\mathbf{r}_B, t) \cdot \psi_{\text{ball}}(\mathbf{r}_{\text{ball}}, t)
-'$
+The state of the system, which includes the positions of players and the ball, is represented as a wave function $\Psi(r_A, r_B, r_{\text{ball}}, t)$. This wave function is a product of individual Gaussian wave packets representing the probability amplitude of finding each player and the ball at a particular position at time $t$:
 
 $$
-
+\Psi(r_A, r_B, r_{\text{ball}}, t) = \psi_A(r_A, t) \cdot \psi_B(r_B, t) \cdot \psi_{\text{ball}}(r_{\text{ball}}, t)
 $$
 
-Each Gaussian wave packet, for example for player A, can be represented as:
+Each Gaussian wave packet, for example, for player A, can be represented as:
 
 $$
-\psi_A(\mathbf{r}_A, t) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{|\mathbf{r}_A - \mathbf{r}_{A,0}|^2}{2\sigma^2} \right)
+\psi_A(r_A, t) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{|r_A - r_{A,0}|^2}{2\sigma^2} \right)
 $$
 
 where $\sigma$ represents the spread of the wave packet, indicating the uncertainty in the player's position.
@@ -47,7 +39,7 @@ $$
 - **Potential Energy Terms**: Representing the interactions between players, and between players and the ball. For example, the interaction between players A and B can be represented as:
 
 $$
-V_{AB}(\mathbf{r}_A, \mathbf{r}_B) = k \frac{1}{|\mathbf{r}_A - \mathbf{r}_B|}
+V_{AB}(r_A, r_B) = k \frac{1}{|r_A - r_B|}
 $$
 
 The wave function is numerically evolved over a specified time span using classical methods (e.g., finite difference methods and numerical solvers such as `solve_ivp` in Python).
@@ -56,7 +48,7 @@ The wave function is numerically evolved over a specified time span using classi
 
 After evolving the wave function, Monte Carlo simulations are used to estimate the likelihood of different match outcomes. The simulations sample from the probability density function given by $|\Psi|^2$ to determine the possible future states of the system. 
 
-The probability of finding the system in a specific configuration (e.g., player A scoring a goal) is proportional to $|\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t)|^2$. The Monte Carlo approach uses many random samples to estimate the probabilities of different outcomes such as:
+The probability of finding the system in a specific configuration (e.g., player A scoring a goal) is proportional to $|\Psi(r_A, r_B, r_{\text{ball}}, t)|^2$. The Monte Carlo approach uses many random samples to estimate the probabilities of different outcomes, such as:
 
 - **Win for Team A**: When player A is in a favorable position.
 - **Win for Team B**: When player B is in a favorable position.
