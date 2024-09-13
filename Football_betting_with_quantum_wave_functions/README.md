@@ -8,6 +8,9 @@ This project employs a quantum-inspired approach to predict the outcomes of socc
 
 The state of the system, which includes the positions of players and the ball, is represented as a wave function $\Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t)$. This wave function is a product of individual Gaussian wave packets representing the probability amplitude of finding each player and the ball at a particular position at time $t$:
 
+$`\sqrt{3}`$
+
+
 $'
 \Psi(\mathbf{r}_A, \mathbf{r}_B, \mathbf{r}_{\text{ball}}, t) = \psi_A(\mathbf{r}_A, t) \cdot \psi_B(\mathbf{r}_B, t) \cdot \psi_{\text{ball}}(\mathbf{r}_{\text{ball}}, t)
 '$
